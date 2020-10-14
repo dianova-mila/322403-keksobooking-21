@@ -30,14 +30,14 @@ const ADVERT_PHOTOS = [
   `http://o0.github.io/assets/images/tokyo/hotel3.jpg`
 ];
 const ADVERTS_COUNT = 8;
+const PIN_WIDTH = 50;
+const PIN_HEIGHT = 70;
 
 const map = document.querySelector(`.map`);
 const pinContainer = document.querySelector(`.map__pins`);
 const pinTemplate = document.querySelector(`#pin`)
   .content
   .querySelector(`.map__pin`);
-const PIN_WIDTH = 50;
-const PIN_HEIGHT = 70;
 
 const advertCardTemplate = document.querySelector(`#card`)
   .content
@@ -52,8 +52,6 @@ const getRandomItemFromArray = (array) => array[Math.floor(Math.random() * array
 const getRandomNumber = (minValue, maxValue) => minValue + Math.floor(Math.random() * (maxValue + 1 - minValue));
 
 const getArrayRandomLength = (array) => array.slice(0, getRandomNumber(1, (array.length - 1)));
-
-const getArraysDifference = (firstArray, secondArray) => firstArray.filter((x) => !secondArray.includes(x));
 
 const getAdvert = (advertId) => {
   const locationX = getRandomNumber(0, 1200);
@@ -107,6 +105,25 @@ const createPin = (advert) => {
   return pin;
 };
 
+const getCardType = (advertType) => {
+  let advertCardType;
+  switch (advertType) {
+    case `flat`:
+      advertCardType = `Квартира`;
+      break;
+    case `bungalow`:
+      advertCardType = `Бунгало`;
+      break;
+    case `house`:
+      advertCardType = `Дом`;
+      break;
+    case `palace`:
+      advertCardType = `Дворец`;
+      break;
+  }
+  return advertCardType;
+};
+
 const createAdvertCard = (advert) => {
   let advertCard = advertCardTemplate.cloneNode(true);
 
@@ -117,28 +134,20 @@ const createAdvertCard = (advert) => {
   advertCard.querySelector(`.popup__text--capacity`).textContent = `${advert.offer.rooms} комнаты для ${advert.offer.guests}`;
   advertCard.querySelector(`.popup__text--time`).textContent = `Заезд после ${advert.offer.checkin}, выезд до ${advert.offer.checkout}`;
   advertCard.querySelector(`.popup__description`).textContent = advert.offer.description;
-
-  let advertCardType = advertCard.querySelector(`.popup__type`);
-  switch (advert.offer.type) {
-    case `flat`:
-      advertCardType.textContent = `Квартира`;
-      break;
-    case `bungalow`:
-      advertCardType.textContent = `Бунгало`;
-      break;
-    case `house`:
-      advertCardType.textContent = `Дом`;
-      break;
-    case `palace`:
-      advertCardType.textContent = `Дворец`;
-      break;
-  }
+  advertCard.querySelector(`.popup__type`).textContent = getCardType(advert.offer.type);
 
   let advertCardFeatures = advertCard.querySelector(`.popup__features`);
-  let exceedFeatures = getArraysDifference(ADVERT_FEATURES, advert.offer.features);
-  for (let i = 0; i < exceedFeatures.length; i++) {
-    const exceedFeature = exceedFeatures[i];
-    advertCardFeatures.querySelector(`.popup__feature--${exceedFeature}`).remove();
+  let advertCardFeaturesList = advertCard.querySelectorAll(`.popup__feature`);
+  let advertCardFeature = advertCard.querySelector(`.popup__feature--wifi`).cloneNode(true);
+  advertCardFeature.classList.remove(`popup__feature--wifi`);
+
+  for (let i = 0; i < advertCardFeaturesList.length; i++) {
+    advertCardFeaturesList[i].remove();
+  }
+  for (let i = 0; i < advert.offer.features.length; i++) {
+    let advertCardFeatureClone = advertCardFeature.cloneNode(true);
+    advertCardFeatureClone.classList.add(`popup__feature--${advert.offer.features[i]}`);
+    advertCardFeatures.appendChild(advertCardFeatureClone);
   }
 
   let advertCardPhotos = advertCard.querySelector(`.popup__photos`);
@@ -162,7 +171,7 @@ const renderPinsAndCard = (adverts) => {
 
   pinContainer.appendChild(fragment);
 
-  const advertCard = createAdvertCard(adverts[1]);
+  const advertCard = createAdvertCard(adverts[0]);
   map.insertBefore(advertCard, filters);
 };
 
