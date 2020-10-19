@@ -48,8 +48,8 @@ const pinTemplate = document.querySelector(`#pin`)
 const form = document.querySelector(`.ad-form`);
 const formFieldsets = form.querySelectorAll(`fieldset`);
 const addressInput = document.querySelector(`#address`);
-const roomsInput = document.querySelector(`#room_number`);
-const guestsInput = document.querySelector(`#capacity`);
+const roomsSelect = document.querySelector(`#room_number`);
+const guestsSelect = document.querySelector(`#capacity`);
 
 // const advertCardTemplate = document.querySelector(`#card`)
 //   .content
@@ -83,61 +83,74 @@ const activatePage = () => {
   switchForm(formFieldsets, false);
   switchForm(mapFiltersArray, false);
   renderPinsAndCard(getAdvertsArray());
+
+  mainMapPin.removeEventListener(`mousedown`, onMainMapPinMouseDown);
+  mainMapPin.removeEventListener(`keydown`, onMainMapPinEnterPress);
 };
+
+const onMainMapPinMouseDown = (evt) => {
+  if (evt.button === 0) {
+    activatePage();
+  }
+};
+
+const onMainMapPinEnterPress = (evt) => {
+  if (evt.key === `Enter`) {
+    activatePage();
+  }
+};
+
+mainMapPin.addEventListener(`mousedown`, onMainMapPinMouseDown);
+mainMapPin.addEventListener(`keydown`, onMainMapPinEnterPress);
 
 mainMapPin.addEventListener(`mousedown`, (evt) => {
   if (evt.button === 0) {
-    activatePage();
     setAddressValue();
   }
 });
 
-mainMapPin.addEventListener(`keydown`, (evt) => {
-  if (evt.key === `Enter`) {
-    activatePage();
-  }
-});
 
 // Валидация
 
 const validateGuests = () => {
-  const guestCount = parseInt(guestsInput.value, 10);
-  switch (roomsInput.value) {
+  const guestCount = parseInt(guestsSelect.value, 10);
+  switch (roomsSelect.value) {
     case `1`:
       if (guestCount !== 1) {
-        guestsInput.setCustomValidity(`Одна комната только для одного гостя`);
+        guestsSelect.setCustomValidity(`Одна комната только для одного гостя`);
       } else {
-        guestsInput.setCustomValidity(``);
+        guestsSelect.setCustomValidity(``);
       }
       break;
     case `2`:
       if (guestCount < 1 || guestCount > 2) {
-        guestsInput.setCustomValidity(`Две комнаты только для одного или двух гостей`);
+        guestsSelect.setCustomValidity(`Две комнаты только для одного или двух гостей`);
       } else {
-        guestsInput.setCustomValidity(``);
+        guestsSelect.setCustomValidity(``);
       }
       break;
     case `3`:
       if (guestCount < 1 || guestCount > 3) {
-        guestsInput.setCustomValidity(`Три комнаты только для 1-3 гостей`);
+        guestsSelect.setCustomValidity(`Три комнаты только для 1-3 гостей`);
       } else {
-        guestsInput.setCustomValidity(``);
+        guestsSelect.setCustomValidity(``);
       }
       break;
     case `100`:
       if (guestCount !== 0) {
-        guestsInput.setCustomValidity(`100 комнат не для гостей`);
+        guestsSelect.setCustomValidity(`100 комнат не для гостей`);
       } else {
-        guestsInput.setCustomValidity(``);
+        guestsSelect.setCustomValidity(``);
       }
       break;
   }
 
-  guestsInput.reportValidity();
+  guestsSelect.reportValidity();
 };
 
-guestsInput.addEventListener(`input`, () => validateGuests());
-roomsInput.addEventListener(`input`, () => validateGuests());
+const onGuestsSelectChange = () => validateGuests();
+guestsSelect.addEventListener(`change`, onGuestsSelectChange);
+roomsSelect.addEventListener(`change`, onGuestsSelectChange);
 
 const getRandomItemFromArray = (array) => array[Math.floor(Math.random() * array.length)];
 
