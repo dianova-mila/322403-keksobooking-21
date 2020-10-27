@@ -7,21 +7,21 @@
   const addressInput = document.querySelector(`#address`);
 
   window.utils = {
-    'getRandomItemFromArray': function (array) {
+    'getRandomItemFromArray': (array) => {
       return array[Math.floor(Math.random() * array.length)];
     },
     'getRandomNumber': function (minValue, maxValue) {
       return minValue + Math.floor(Math.random() * (maxValue + 1 - minValue));
     },
-    'getArrayRandomLength': function (array) {
+    'getArrayRandomLength': (array) => {
       return array.slice(0, window.utils.getRandomNumber(1, (array.length - 1)));
     },
-    'setAddressValue': function () {
+    'setAddressValue': () => {
       let mainMapPinX = parseInt(getComputedStyle(mainMapPin).left, 10) + (MAIN_PIN_WIDTH / 2);
       let mainMapPinY = parseInt(getComputedStyle(mainMapPin).top, 10) + MAIN_PIN_HEIGHT;
       addressInput.value = `${mainMapPinX}, ${mainMapPinY}`;
     },
-    'switchForm': function (formArray, disable) {
+    'switchForm': (formArray, disable) => {
       for (let element of formArray) {
         element.disabled = disable;
       }
