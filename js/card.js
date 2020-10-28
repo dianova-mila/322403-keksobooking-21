@@ -63,16 +63,18 @@
     return advertCard;
   };
 
-  window.cards = {
-    'renderCard': function (adverts) {
-      if (map.querySelector(`.map__card`)) {
-        map.querySelector(`.map__card`).remove();
-        const advertCard = createAdvertCard(adverts);
-        map.insertBefore(advertCard, filters);
-      } else {
-        const advertCard = createAdvertCard(adverts);
-        map.insertBefore(advertCard, filters);
-      }
-    },
+  const renderCard = (adverts) => {
+    if (map.querySelector(`.map__card`)) {
+      map.querySelector(`.map__card`).remove();
+      const advertCard = createAdvertCard(adverts);
+      map.insertBefore(advertCard, filters);
+    } else {
+      const advertCard = createAdvertCard(adverts);
+      map.insertBefore(advertCard, filters);
+    }
+  };
+
+  window.card = {
+    'renderCard': renderCard,
   };
 })();
