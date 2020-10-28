@@ -17,9 +17,9 @@
       const advertId = evt.target.closest(`.map__pin`).dataset.advertId;
       window.card.renderCard(window.data.advertsArray[advertId]);
 
-      const mapCloseButton = map.querySelector(`.popup__close`);
-      mapCloseButton.addEventListener(`click`, onMapCloseButtonClick);
-      map.addEventListener(`keydown`, onMapCloseButtonEscPress);
+      const mapPinCloseButton = map.querySelector(`.popup__close`);
+      mapPinCloseButton.addEventListener(`click`, onMapPinCloseButtonClick);
+      map.addEventListener(`keydown`, onMapPinCloseButtonEscPress);
     }
   };
 
@@ -29,6 +29,10 @@
       !evt.target.closest(`.map__pin--main`)) {
       const advertId = evt.target.closest(`.map__pin`).dataset.advertId;
       window.card.renderCard(window.data.advertsArray[advertId]);
+
+      const mapPinCloseButton = map.querySelector(`.popup__close`);
+      mapPinCloseButton.addEventListener(`click`, onMapPinCloseButtonClick);
+      map.addEventListener(`keydown`, onMapPinCloseButtonEscPress);
     }
   };
 
@@ -37,22 +41,22 @@
 
   const closeCard = () => map.querySelector(`.map__card`).remove();
 
-  const onMapCloseButtonClick = (evt) => {
+  const onMapPinCloseButtonClick = (evt) => {
     evt.preventDefault();
     closeCard();
   };
 
-  const onMapCloseButtonEscPress = (evt) => {
+  const onMapPinCloseButtonEscPress = (evt) => {
     if (evt.key === `Escape`) {
       evt.preventDefault();
       closeCard();
     }
   };
 
-  mainMapPin.addEventListener(`mousedown`, function (evt) {
+  const onMainMapPinMousemove = (evt) => {
     evt.preventDefault();
 
-    let startCoords = {
+    let startCoordinates = {
       x: evt.clientX,
       y: evt.clientY
     };
@@ -66,11 +70,11 @@
 
 
       const shift = {
-        x: startCoords.x - moveEvt.clientX,
-        y: startCoords.y - moveEvt.clientY
+        x: startCoordinates.x - moveEvt.clientX,
+        y: startCoordinates.y - moveEvt.clientY
       };
 
-      startCoords = {
+      startCoordinates = {
         x: moveEvt.clientX,
         y: moveEvt.clientY
       };
@@ -123,5 +127,7 @@
 
     document.addEventListener(`mousemove`, onMouseMove);
     document.addEventListener(`mouseup`, onMouseUp);
-  });
+  };
+
+  mainMapPin.addEventListener(`mousedown`, onMainMapPinMousemove);
 })();

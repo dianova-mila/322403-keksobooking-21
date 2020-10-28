@@ -9,6 +9,10 @@
   const form = document.querySelector(`.ad-form`);
   const formFieldsets = form.querySelectorAll(`fieldset`);
 
+  const errorPopupTemplate = document.querySelector(`#error`)
+    .content
+    .querySelector(`.error`);
+
 
   // Страница неактивна
 
@@ -17,6 +21,33 @@
   window.utils.setAddressValue();
 
   // Активация страницы
+  const successHandler = (serverResponse) => {
+    window.data = {
+      'advertsArray': serverResponse,
+    };
+    window.pins.renderPins(window.data.advertsArray);
+  };
+
+  const errorHandler = (errorMessage) => {
+    let errorPopup = errorPopupTemplate.cloneNode(true);
+    errorPopup.querySelector(`.error__message`).textContent = errorMessage;
+
+    document.body.appendChild(errorPopup);
+
+    const errorCloseButton = errorPopup.querySelector(`.error__button`);
+    const onErrorCloseButtonClick = (evt) => {
+      evt.preventDefault();
+      errorPopupClose();
+    };
+
+    errorCloseButton.addEventListener(`click`, onErrorCloseButtonClick);
+
+    const errorPopupClose = () => {
+      document.querySelector(`.error`).remove();
+      location.reload();
+    };
+  };
+
 
   const activatePage = () => {
     map.classList.remove(`map--faded`);
@@ -24,7 +55,7 @@
 
     window.utils.switchForm(formFieldsets, false);
     window.utils.switchForm(mapFiltersArray, false);
-    window.pins.renderPins(window.data.advertsArray);
+    window.server.load(successHandler, errorHandler);
 
     mainMapPin.removeEventListener(`mousedown`, onMainMapPinMouseDown);
     mainMapPin.removeEventListener(`keydown`, onMainMapPinEnterPress);

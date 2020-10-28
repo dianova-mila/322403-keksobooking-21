@@ -66,8 +66,8 @@
     const priceValue = parseInt(priceInput.value, 10);
     switch (advertTypeSelect.value) {
       case `bungalow`:
-        priceInput.setAttribute(`placeholder`, `500`);
-        priceInput.setAttribute(`min`, `0`);
+        priceInput.placeholder = 500;
+        priceInput.min = 0;
         if (priceValue > 100000) {
           priceInput.setCustomValidity(`Цена не может быть больше 100000 за ночь`);
         } else {
@@ -75,8 +75,8 @@
         }
         break;
       case `flat`:
-        priceInput.setAttribute(`placeholder`, `1000`);
-        priceInput.setAttribute(`min`, `1000`);
+        priceInput.placeholder = 1000;
+        priceInput.min = 1000;
         if (priceValue > 100000 || priceValue < 1000) {
           priceInput.setCustomValidity(`Цена за квартиру не может быть меньше 1000 и больше 100000 за ночь`);
         } else {
@@ -84,8 +84,8 @@
         }
         break;
       case `house`:
-        priceInput.setAttribute(`placeholder`, `5000`);
-        priceInput.setAttribute(`min`, `5000`);
+        priceInput.placeholder = 5000;
+        priceInput.min = 5000;
         if (priceValue > 100000 || priceValue < 5000) {
           priceInput.setCustomValidity(`Цена за дом не может быть меньше 5000 и больше 100000 за ночь`);
         } else {
@@ -93,8 +93,8 @@
         }
         break;
       case `palace`:
-        priceInput.setAttribute(`placeholder`, `10000`);
-        priceInput.setAttribute(`min`, `10000`);
+        priceInput.placeholder = 10000;
+        priceInput.min = 10000;
         if (priceValue > 100000 || priceValue < 10000) {
           priceInput.setCustomValidity(`Цена за дворец не может быть меньше 10000 и больше 100000 за ночь`);
         } else {
