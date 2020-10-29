@@ -56,8 +56,9 @@
     let advertCardPhoto = advertCardPhotos.querySelector(`.popup__photo`).cloneNode(true);
     advertCardPhotos.querySelector(`.popup__photo`).remove();
     for (let i = 0; i < advert.offer.photos.length; i++) {
-      advertCardPhoto.src = advert.offer.photos[i];
-      advertCardPhotos.appendChild(advertCardPhoto);
+      let advertCardPhotoClone = advertCardPhoto.cloneNode(true);
+      advertCardPhotoClone.src = advert.offer.photos[i];
+      advertCardPhotos.appendChild(advertCardPhotoClone);
     }
 
     return advertCard;
