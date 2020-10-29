@@ -12,6 +12,8 @@
   const timeInSelect = document.querySelector(`#timein`);
   const timeOutSelect = document.querySelector(`#timeout`);
 
+  // Валидация поля ввода гостей и комнат
+
   const validateGuests = () => {
     const guestCount = parseInt(guestsSelect.value, 10);
     switch (roomsSelect.value) {
@@ -48,6 +50,8 @@
     guestsSelect.reportValidity();
   };
 
+  // Валидация заголовка
+
   const validateTitle = () => {
     const titleLength = titleInput.value.length;
 
@@ -61,6 +65,8 @@
 
     titleInput.reportValidity();
   };
+
+  // Валидация поля ввода цены
 
   const validatePrice = () => {
     const priceValue = parseInt(priceInput.value, 10);
@@ -106,9 +112,13 @@
     priceInput.reportValidity();
   };
 
+  // Настройка времени выезда
+
   const tuneTimeOut = () => {
     timeOutSelect.value = timeInSelect.value;
   };
+
+  // Настройка времени заезда
 
   const tuneTimeIn = () => {
     timeInSelect.value = timeOutSelect.value;

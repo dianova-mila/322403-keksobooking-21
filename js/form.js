@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  const form = document.querySelector(`.ad-form`);
+  const formReset = document.querySelector(`.ad-form__reset`);
   const roomsSelect = document.querySelector(`#room_number`);
   const guestsSelect = document.querySelector(`#capacity`);
   const titleInput = document.querySelector(`#title`);
@@ -27,5 +29,21 @@
 
   timeInSelect.addEventListener(`change`, window.validators.tuneTimeOut);
   timeOutSelect.addEventListener(`change`, window.validators.tuneTimeIn);
+
+  // Отправка формы
+
+  form.addEventListener(`submit`, function (evt) {
+    window.server.upload(new FormData(form), window.success.showSuccess, window.error.showError);
+    evt.preventDefault();
+  });
+
+  // Обработчик для кнопки "очистить"
+
+  const onFormResetButtonClick = (evt) => {
+    evt.preventDefault();
+    form.reset();
+  };
+
+  formReset.addEventListener(`click`, onFormResetButtonClick);
 
 })();

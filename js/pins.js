@@ -3,6 +3,8 @@
 (function () {
   const pinContainer = document.querySelector(`.map__pins`);
 
+  // Рендер пинов
+
   const renderPins = (adverts) => {
     const fragment = document.createDocumentFragment();
 

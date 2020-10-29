@@ -7,6 +7,8 @@
     .content
     .querySelector(`.map__pin`);
 
+  // Создание пина
+
   const createPin = (advert) => {
     let pin = pinTemplate.cloneNode(true);
 

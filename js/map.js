@@ -6,20 +6,11 @@
   const map = document.querySelector(`.map`);
   const mainMapPin = document.querySelector(`.map__pin--main`);
 
-  mainMapPin.addEventListener(`mousedown`, (evt) => {
-    if (evt.button === 0) {
-      window.utils.setAddressValue();
-    }
-  });
+  // Показать карточку объявления
 
   const onMapPinClick = (evt) => {
     if (evt.target.closest(`.map__pin`) && !evt.target.closest(`.map__pin--main`)) {
-      const advertId = evt.target.closest(`.map__pin`).dataset.advertId;
-      window.card.renderCard(window.data.advertsArray[advertId]);
-
-      const mapPinCloseButton = map.querySelector(`.popup__close`);
-      mapPinCloseButton.addEventListener(`click`, onMapPinCloseButtonClick);
-      map.addEventListener(`keydown`, onMapPinCloseButtonEscPress);
+      showCard(evt);
     }
   };
 
@@ -27,13 +18,17 @@
     if (evt.key === `Enter` &&
       evt.target.closest(`.map__pin`) &&
       !evt.target.closest(`.map__pin--main`)) {
-      const advertId = evt.target.closest(`.map__pin`).dataset.advertId;
-      window.card.renderCard(window.data.advertsArray[advertId]);
-
-      const mapPinCloseButton = map.querySelector(`.popup__close`);
-      mapPinCloseButton.addEventListener(`click`, onMapPinCloseButtonClick);
-      map.addEventListener(`keydown`, onMapPinCloseButtonEscPress);
+      showCard(evt);
     }
+  };
+
+  const showCard = (evt) => {
+    const advertId = evt.target.closest(`.map__pin`).dataset.advertId;
+    window.card.renderCard(window.data.advertsArray[advertId]);
+
+    const mapPinCloseButton = map.querySelector(`.popup__close`);
+    mapPinCloseButton.addEventListener(`click`, onCardCloseButtonClick);
+    map.addEventListener(`keydown`, onCardEscPress);
   };
 
   map.addEventListener(`click`, onMapPinClick);
@@ -41,17 +36,25 @@
 
   const closeCard = () => map.querySelector(`.map__card`).remove();
 
-  const onMapPinCloseButtonClick = (evt) => {
+  const onCardCloseButtonClick = (evt) => {
     evt.preventDefault();
     closeCard();
   };
 
-  const onMapPinCloseButtonEscPress = (evt) => {
+  const onCardEscPress = (evt) => {
     if (evt.key === `Escape`) {
       evt.preventDefault();
       closeCard();
     }
   };
+
+  // Обработчики для mainPin
+
+  mainMapPin.addEventListener(`mousedown`, (evt) => {
+    if (evt.button === 0) {
+      window.utils.setAddressValue();
+    }
+  });
 
   const onMainMapPinMousemove = (evt) => {
     evt.preventDefault();
