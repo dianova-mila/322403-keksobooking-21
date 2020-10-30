@@ -7,6 +7,8 @@
   const filters = document.querySelector(`.map__filters-container`);
   const map = document.querySelector(`.map`);
 
+  // Создание карточки объявления
+
   const getCardType = (advertType) => {
     let advertCardType;
     switch (advertType) {
@@ -63,6 +65,8 @@
 
     return advertCard;
   };
+
+  // Рендер карточки объявления
 
   const renderCard = (adverts) => {
     if (map.querySelector(`.map__card`)) {
