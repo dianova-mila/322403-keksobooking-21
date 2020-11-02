@@ -1,14 +1,28 @@
 'use strict';
 
 (function () {
+  const map = document.querySelector(`.map`);
   const pinContainer = document.querySelector(`.map__pins`);
+  const pinsCount = 5;
+
+  // Удаление пинов
+  const removePins = () => {
+    if (map.querySelector(`.map__pin:not(.map__pin--main)`)) {
+      const mapPins = map.querySelectorAll(`.map__pin:not(.map__pin--main)`);
+      for (let pin of mapPins) {
+        pin.remove();
+      }
+    }
+  };
 
   // Рендер пинов
 
   const renderPins = (adverts) => {
+    removePins();
+
     const fragment = document.createDocumentFragment();
 
-    for (let i = 0; i < adverts.length; i++) {
+    for (let i = 0; i < Math.min(pinsCount, adverts.length); i++) {
       const pin = window.pin.createPin(adverts[i]);
       pin.dataset.advertId = `${i}`;
       fragment.appendChild(pin);
@@ -18,6 +32,7 @@
   };
 
   window.pins = {
-    'renderPins': renderPins
+    'renderPins': renderPins,
+    'removePins': removePins,
   };
 })();

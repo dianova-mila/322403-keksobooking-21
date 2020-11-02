@@ -24,7 +24,7 @@
 
   const showCard = (evt) => {
     const advertId = evt.target.closest(`.map__pin`).dataset.advertId;
-    window.card.renderCard(window.data.advertsArray[advertId]);
+    window.card.renderCard(window.data.activeAdvertsArray[advertId]);
 
     const mapPinCloseButton = map.querySelector(`.popup__close`);
     mapPinCloseButton.addEventListener(`click`, onCardCloseButtonClick);

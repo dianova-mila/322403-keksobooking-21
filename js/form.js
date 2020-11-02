@@ -10,6 +10,7 @@
   const advertTypeSelect = document.querySelector(`#type`);
   const timeInSelect = document.querySelector(`#timein`);
   const timeOutSelect = document.querySelector(`#timeout`);
+  const URLUpload = `https://21.javascript.pages.academy/keksobooking`;
 
   // Валидация поля ввода гостей и комнат
 
@@ -33,7 +34,7 @@
   // Отправка формы
 
   form.addEventListener(`submit`, function (evt) {
-    window.server.upload(new FormData(form), window.success.showSuccess, window.error.showError);
+    window.server.request(new FormData(form), `POST`, URLUpload, window.success.showSuccess, window.error.showError);
     evt.preventDefault();
   });
 
@@ -41,7 +42,7 @@
 
   const onFormResetButtonClick = (evt) => {
     evt.preventDefault();
-    form.reset();
+    window.page.deactivatePage();
   };
 
   formReset.addEventListener(`click`, onFormResetButtonClick);
