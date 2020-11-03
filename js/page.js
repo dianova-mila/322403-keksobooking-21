@@ -11,6 +11,7 @@
   const formFieldsets = form.querySelectorAll(`fieldset`);
   const mapFilters = document.querySelector(`.map__filters`);
   const mapFiltersArray = mapFilters.children;
+  const URLLoad = `https://21.javascript.pages.academy/keksobooking/data`;
 
   // Активировать страницу
 
@@ -19,7 +20,7 @@
     form.classList.remove(`ad-form--disabled`);
 
     window.utils.switchForm(formFieldsets, false);
-    window.server.load(successLoadHandler, window.error.showError);
+    window.server.request(``, `GET`, URLLoad, successLoadHandler, window.error.showError);
 
     mainMapPin.removeEventListener(`mousedown`, onMainMapPinMouseDown);
     mainMapPin.removeEventListener(`keydown`, onMainMapPinEnterPress);
@@ -29,7 +30,8 @@
     window.data = {
       'advertsArray': serverResponse,
     };
-    window.pins.renderPins(window.data.advertsArray);
+    window.data.activeAdvertsArray = window.data.advertsArray;
+    window.pins.renderPins(window.data.activeAdvertsArray);
 
     window.utils.switchForm(mapFiltersArray, false);
   };
@@ -57,12 +59,8 @@
       form.classList.add(`ad-form--disabled`);
     }
 
-    if (map.querySelector(`.map__pin:not(.map__pin--main)`)) {
-      const mapPins = map.querySelectorAll(`.map__pin:not(.map__pin--main)`);
-      for (let pin of mapPins) {
-        pin.remove();
-      }
-    }
+    window.pins.removePins();
+    window.card.removeCard();
 
     form.reset();
 
