@@ -3,50 +3,7 @@
 (function () {
   const MAIN_PIN_WIDTH = 62;
   const MAIN_PIN_HEIGHT = 84;
-  const map = document.querySelector(`.map`);
   const mainMapPin = document.querySelector(`.map__pin--main`);
-
-  // Показать карточку объявления
-
-  const onMapPinClick = (evt) => {
-    if (evt.target.closest(`.map__pin`) && !evt.target.closest(`.map__pin--main`)) {
-      showCard(evt);
-    }
-  };
-
-  const onMapPinEnterPress = (evt) => {
-    if (evt.key === `Enter` &&
-      evt.target.closest(`.map__pin`) &&
-      !evt.target.closest(`.map__pin--main`)) {
-      showCard(evt);
-    }
-  };
-
-  const showCard = (evt) => {
-    const advertId = evt.target.closest(`.map__pin`).dataset.advertId;
-    window.card.renderCard(window.data.activeAdvertsArray[advertId]);
-
-    const mapPinCloseButton = map.querySelector(`.popup__close`);
-    mapPinCloseButton.addEventListener(`click`, onCardCloseButtonClick);
-    map.addEventListener(`keydown`, onCardEscPress);
-  };
-
-  map.addEventListener(`click`, onMapPinClick);
-  map.addEventListener(`keydown`, onMapPinEnterPress);
-
-  const closeCard = () => map.querySelector(`.map__card`).remove();
-
-  const onCardCloseButtonClick = (evt) => {
-    evt.preventDefault();
-    closeCard();
-  };
-
-  const onCardEscPress = (evt) => {
-    if (evt.key === `Escape`) {
-      evt.preventDefault();
-      closeCard();
-    }
-  };
 
   // Обработчики для mainPin
 

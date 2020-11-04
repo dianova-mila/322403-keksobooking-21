@@ -24,8 +24,28 @@
 
     for (let i = 0; i < Math.min(pinsCount, adverts.length); i++) {
       const pin = window.pin.createPin(adverts[i]);
-      pin.dataset.advertId = `${i}`;
       fragment.appendChild(pin);
+
+      const onMapPinClick = (evt) => {
+        if (evt.target.closest(`.map__pin`) && !evt.target.closest(`.map__pin--main`)) {
+          showCard(evt);
+        }
+      };
+
+      const onMapPinEnterPress = (evt) => {
+        if (evt.key === `Enter` &&
+          evt.target.closest(`.map__pin`) &&
+          !evt.target.closest(`.map__pin--main`)) {
+          showCard(evt);
+        }
+      };
+
+      const showCard = () => {
+        window.card.renderCard(adverts[i]);
+      };
+
+      pin.addEventListener(`click`, onMapPinClick);
+      pin.addEventListener(`keydown`, onMapPinEnterPress);
     }
 
     pinContainer.appendChild(fragment);

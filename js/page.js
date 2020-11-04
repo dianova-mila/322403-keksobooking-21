@@ -27,11 +27,8 @@
   };
 
   const successLoadHandler = (serverResponse) => {
-    window.data = {
-      'advertsArray': serverResponse,
-    };
-    window.data.activeAdvertsArray = window.data.advertsArray;
-    window.pins.renderPins(window.data.activeAdvertsArray);
+    window.data.save(`advertsArray`, serverResponse);
+    window.pins.renderPins(window.data.get(`advertsArray`));
 
     window.utils.switchForm(mapFiltersArray, false);
   };
