@@ -77,12 +77,29 @@
       const advertCard = createAdvertCard(adverts);
       map.insertBefore(advertCard, filters);
     }
+
+    const mapPinCloseButton = map.querySelector(`.popup__close`);
+    mapPinCloseButton.addEventListener(`click`, onCardCloseButtonClick);
+    map.addEventListener(`keydown`, onCardEscPress);
+  };
+
+  const onCardCloseButtonClick = (evt) => {
+    evt.preventDefault();
+    removeCard();
+  };
+
+  const onCardEscPress = (evt) => {
+    if (evt.key === `Escape`) {
+      evt.preventDefault();
+      removeCard();
+    }
   };
 
   // Скрыть карточку
   const removeCard = () => {
     if (map.querySelector(`.map__card`)) {
       map.querySelector(`.map__card`).remove();
+      map.removeEventListener(`keydown`, onCardEscPress);
     }
   };
 

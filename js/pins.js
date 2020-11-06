@@ -24,7 +24,6 @@
 
     for (let i = 0; i < Math.min(pinsCount, adverts.length); i++) {
       const pin = window.pin.createPin(adverts[i]);
-      pin.dataset.advertId = `${i}`;
       fragment.appendChild(pin);
     }
 
