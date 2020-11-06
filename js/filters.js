@@ -12,50 +12,63 @@
   const advertGuestsSelect = document.querySelector(`#housing-guests`);
 
 
-  // Фильтр жилья
-
-  const onFilterChange = window.debounce(() => {
-    let filteredArray = window.data.get(`advertsArray`);
-
-    if (advertTypeSelect.value !== `any`) {
-      filteredArray = filteredArray.filter((advert) => advert.offer.type === advertTypeSelect.value);
-    }
-
+  const checkPrice = (advert) => {
     if (advertPriceSelect.value !== `any`) {
-      switch (advertPriceSelect.value) {
-        case `low`:
-          filteredArray = filteredArray.filter((advert) => advert.offer.price < PRICE.middle);
-          break;
-        case `middle`:
-          filteredArray = filteredArray.filter((advert) => {
-            return advert.offer.price >= PRICE.middle && advert.offer.price <= PRICE.high;
-          });
-          break;
-        case `high`:
-          filteredArray = filteredArray.filter((advert) => advert.offer.price > PRICE.high);
-          break;
+      if (advertPriceSelect.value === `low` && advert.offer.price >= PRICE.middle) {
+        return false;
+      }
+      if (advertPriceSelect.value === `middle` && advert.offer.price < PRICE.middle && advert.offer.price > PRICE.high) {
+        return false;
+      }
+      if (advertPriceSelect.value === `high` && advert.offer.price < PRICE.high) {
+        return false;
       }
     }
 
-    if (advertRoomsSelect.value !== `any`) {
-      filteredArray = filteredArray.filter((advert) => {
-        return advert.offer.rooms === parseInt(advertRoomsSelect.value, 10);
-      });
-    }
+    return true;
+  };
 
-    if (advertGuestsSelect.value !== `any`) {
-      filteredArray = filteredArray.filter((advert) => {
-        return advert.offer.guests === parseInt(advertGuestsSelect.value, 10);
-      });
-    }
-
+  const checkFeatures = (advert) => {
     const filterActiveCheckboxes = document.querySelectorAll(`.map__checkbox:checked`);
 
     for (let activeCheckbox of filterActiveCheckboxes) {
-      filteredArray = filteredArray.filter((advert) => advert.offer.features.includes(activeCheckbox.value));
+      if (!advert.offer.features.includes(activeCheckbox.value)) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  // Фильтр жилья
+
+  const filterImplementation = (advert) => {
+    if (advertTypeSelect.value !== `any` && advert.offer.type !== advertTypeSelect.value) {
+      return false;
     }
 
+    if (advertRoomsSelect.value !== `any` && advert.offer.rooms !== parseInt(advertRoomsSelect.value, 10)) {
+      return false;
+    }
+
+    if (advertGuestsSelect.value !== `any` && advert.offer.guests !== parseInt(advertGuestsSelect.value, 10)) {
+      return false;
+    }
+
+    if (!checkPrice(advert)) {
+      return false;
+    }
+
+    if (!checkFeatures(advert)) {
+      return false;
+    }
+
+    return true;
+  };
+
+  const onFilterChange = window.debounce(() => {
     window.card.removeCard();
+
+    const filteredArray = window.data.get().filter(filterImplementation);
 
     window.pins.renderPins(filteredArray);
   });

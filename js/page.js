@@ -27,8 +27,8 @@
   };
 
   const successLoadHandler = (serverResponse) => {
-    window.data.save(`advertsArray`, serverResponse);
-    window.pins.renderPins(window.data.get(`advertsArray`));
+    window.data.save(serverResponse);
+    window.pins.renderPins(window.data.get());
 
     window.utils.switchForm(mapFiltersArray, false);
   };

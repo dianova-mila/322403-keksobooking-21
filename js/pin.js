@@ -19,6 +19,27 @@
     pinImage.src = advert.author.avatar;
     pinImage.alt = advert.offer.title;
 
+    const onMapPinClick = (evt) => {
+      if (evt.target.closest(`.map__pin`) && !evt.target.closest(`.map__pin--main`)) {
+        showCard();
+      }
+    };
+
+    const onMapPinEnterPress = (evt) => {
+      if (evt.key === `Enter` &&
+        evt.target.closest(`.map__pin`) &&
+        !evt.target.closest(`.map__pin--main`)) {
+        showCard();
+      }
+    };
+
+    const showCard = () => {
+      window.card.renderCard(advert);
+    };
+
+    pin.addEventListener(`click`, onMapPinClick);
+    pin.addEventListener(`keydown`, onMapPinEnterPress);
+
     return pin;
   };
 
