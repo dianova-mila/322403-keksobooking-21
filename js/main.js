@@ -3,5 +3,5 @@
 (function () {
   // Страница неактивна
 
-  window.page.deactivatePage();
+  window.page.deactivate();
 })();

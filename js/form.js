@@ -33,8 +33,8 @@
 
   // Отправка формы
 
-  form.addEventListener(`submit`, function (evt) {
-    window.server.request(new FormData(form), `POST`, URLUpload, window.success.showSuccess, window.error.showError);
+  form.addEventListener(`submit`, (evt) => {
+    window.server.request(new FormData(form), `POST`, URLUpload, window.success.show, window.error.show);
     evt.preventDefault();
   });
 
@@ -42,7 +42,7 @@
 
   const onFormResetButtonClick = (evt) => {
     evt.preventDefault();
-    window.page.deactivatePage();
+    window.page.deactivate();
   };
 
   formReset.addEventListener(`click`, onFormResetButtonClick);

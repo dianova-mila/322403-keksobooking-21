@@ -1,16 +1,17 @@
 'use strict';
 
 (function () {
-  const errorPopupTemplate = document.querySelector(`#success`)
+  const successPopupTemplate = document.querySelector(`#success`)
     .content
     .querySelector(`.success`);
+  const container = document.querySelector(`main`);
 
   // Показать сообщение об удачной отправке данных
 
   const showSuccess = () => {
-    let successPopup = errorPopupTemplate.cloneNode(true);
+    let successPopup = successPopupTemplate.cloneNode(true);
 
-    document.body.appendChild(successPopup);
+    container.appendChild(successPopup);
 
     const closeSuccessPopup = () => {
       document.querySelector(`.success`).remove();
@@ -18,7 +19,7 @@
       document.removeEventListener(`click`, onSuccessPopupClick);
       document.removeEventListener(`keydown`, onSuccessPopupEscPress);
 
-      window.page.deactivatePage();
+      window.page.deactivate();
     };
 
     const onSuccessPopupClick = (evt) => {
@@ -38,6 +39,6 @@
   };
 
   window.success = {
-    'showSuccess': showSuccess,
+    'show': showSuccess,
   };
 })();

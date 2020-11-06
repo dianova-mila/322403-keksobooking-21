@@ -9,8 +9,8 @@
   const mainMapPin = document.querySelector(`.map__pin--main`);
   const form = document.querySelector(`.ad-form`);
   const formFieldsets = form.querySelectorAll(`fieldset`);
-  const mapFilters = document.querySelector(`.map__filters`);
-  const mapFiltersArray = mapFilters.children;
+  const mapFilter = document.querySelector(`.map__filters`);
+  const mapFilters = mapFilter.children;
   const URLLoad = `https://21.javascript.pages.academy/keksobooking/data`;
 
   // Активировать страницу
@@ -20,17 +20,17 @@
     form.classList.remove(`ad-form--disabled`);
 
     window.utils.switchForm(formFieldsets, false);
-    window.server.request(``, `GET`, URLLoad, successLoadHandler, window.error.showError);
+    window.server.request(``, `GET`, URLLoad, onSuccessLoad, window.error.show);
 
     mainMapPin.removeEventListener(`mousedown`, onMainMapPinMouseDown);
     mainMapPin.removeEventListener(`keydown`, onMainMapPinEnterPress);
   };
 
-  const successLoadHandler = (serverResponse) => {
+  const onSuccessLoad = (serverResponse) => {
     window.data.save(serverResponse);
-    window.pins.renderPins(window.data.get());
+    window.pins.render(window.data.get());
 
-    window.utils.switchForm(mapFiltersArray, false);
+    window.utils.switchForm(mapFilters, false);
   };
 
   const onMainMapPinMouseDown = (evt) => {
@@ -56,23 +56,24 @@
       form.classList.add(`ad-form--disabled`);
     }
 
-    window.pins.removePins();
-    window.card.removeCard();
+    window.pins.remove();
+    window.card.remove();
 
     form.reset();
+    mapFilter.reset();
 
     mainMapPin.style.top = MAIN_MAP_PIN_DEFAULT_POSITION.top;
     mainMapPin.style.left = MAIN_MAP_PIN_DEFAULT_POSITION.left;
 
     window.utils.switchForm(formFieldsets, true);
-    window.utils.switchForm(mapFiltersArray, true);
-    window.utils.setAddressValue();
+    window.utils.switchForm(mapFilters, true);
+    window.utils.setStartAddressValue();
 
     mainMapPin.addEventListener(`mousedown`, onMainMapPinMouseDown);
     mainMapPin.addEventListener(`keydown`, onMainMapPinEnterPress);
   };
 
   window.page = {
-    'deactivatePage': deactivatePage
+    'deactivate': deactivatePage
   };
 })();

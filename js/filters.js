@@ -11,6 +11,17 @@
   const advertRoomsSelect = document.querySelector(`#housing-rooms`);
   const advertGuestsSelect = document.querySelector(`#housing-guests`);
 
+  const checkType = (advert) => {
+    return advertTypeSelect.value === `any` || advert.offer.type === advertTypeSelect.value;
+  };
+
+  const checkRooms = (advert) => {
+    return advertRoomsSelect.value === `any` || advert.offer.rooms === parseInt(advertRoomsSelect.value, 10);
+  };
+
+  const checkGuests = (advert) => {
+    return advertGuestsSelect.value === `any` || advert.offer.guests === parseInt(advertGuestsSelect.value, 10);
+  };
 
   const checkPrice = (advert) => {
     if (advertPriceSelect.value !== `any`) {
@@ -41,36 +52,16 @@
 
   // Фильтр жилья
 
-  const filterImplementation = (advert) => {
-    if (advertTypeSelect.value !== `any` && advert.offer.type !== advertTypeSelect.value) {
-      return false;
-    }
-
-    if (advertRoomsSelect.value !== `any` && advert.offer.rooms !== parseInt(advertRoomsSelect.value, 10)) {
-      return false;
-    }
-
-    if (advertGuestsSelect.value !== `any` && advert.offer.guests !== parseInt(advertGuestsSelect.value, 10)) {
-      return false;
-    }
-
-    if (!checkPrice(advert)) {
-      return false;
-    }
-
-    if (!checkFeatures(advert)) {
-      return false;
-    }
-
-    return true;
+  const filterAdverts = (advert) => {
+    return checkType(advert) && checkRooms(advert) && checkGuests(advert) && checkPrice(advert) && checkFeatures(advert);
   };
 
   const onFilterChange = window.debounce(() => {
-    window.card.removeCard();
+    window.card.remove();
 
-    const filteredArray = window.data.get().filter(filterImplementation);
+    const filteredAdverts = window.data.get().filter(filterAdverts);
 
-    window.pins.renderPins(filteredArray);
+    window.pins.render(filteredAdverts);
   });
 
   filter.addEventListener(`change`, onFilterChange);
