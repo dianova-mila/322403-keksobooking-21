@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+(() => {
   const PIN_WIDTH = 50;
   const PIN_HEIGHT = 70;
   const pinTemplate = document.querySelector(`#pin`)
@@ -34,7 +34,7 @@
     };
 
     const showCard = () => {
-      window.card.renderCard(advert);
+      window.card.render(advert);
     };
 
     pin.addEventListener(`click`, onMapPinClick);
@@ -44,6 +44,6 @@
   };
 
   window.pin = {
-    'createPin': createPin
+    'create': createPin
   };
 })();

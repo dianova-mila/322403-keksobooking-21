@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+(() => {
   const advertCardTemplate = document.querySelector(`#card`)
     .content
     .querySelector(`.map__card`);
@@ -104,7 +104,7 @@
   };
 
   window.card = {
-    'renderCard': renderCard,
-    'removeCard': removeCard,
+    'render': renderCard,
+    'remove': removeCard,
   };
 })();

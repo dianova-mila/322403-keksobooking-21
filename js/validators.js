@@ -1,8 +1,15 @@
 'use strict';
 
-(function () {
+(() => {
   const MIN_TITLE_LENGTH = 30;
   const MAX_TITLE_LENGTH = 100;
+  const PRICES = {
+    bungalow: 500,
+    flat: 1000,
+    house: 5000,
+    palace: 10000,
+    max: 100000,
+  };
 
   const roomsSelect = document.querySelector(`#room_number`);
   const guestsSelect = document.querySelector(`#capacity`);
@@ -72,36 +79,36 @@
     const priceValue = parseInt(priceInput.value, 10);
     switch (advertTypeSelect.value) {
       case `bungalow`:
-        priceInput.placeholder = 500;
+        priceInput.placeholder = PRICES.bungalow;
         priceInput.min = 0;
-        if (priceValue > 100000) {
+        if (priceValue > PRICES.max) {
           priceInput.setCustomValidity(`Цена не может быть больше 100000 за ночь`);
         } else {
           priceInput.setCustomValidity(``);
         }
         break;
       case `flat`:
-        priceInput.placeholder = 1000;
-        priceInput.min = 1000;
-        if (priceValue > 100000 || priceValue < 1000) {
+        priceInput.placeholder = PRICES.flat;
+        priceInput.min = PRICES.flat;
+        if (priceValue > PRICES.max || priceValue < PRICES.flat) {
           priceInput.setCustomValidity(`Цена за квартиру не может быть меньше 1000 и больше 100000 за ночь`);
         } else {
           priceInput.setCustomValidity(``);
         }
         break;
       case `house`:
-        priceInput.placeholder = 5000;
-        priceInput.min = 5000;
-        if (priceValue > 100000 || priceValue < 5000) {
+        priceInput.placeholder = PRICES.house;
+        priceInput.min = PRICES.house;
+        if (priceValue > PRICES.max || priceValue < PRICES.house) {
           priceInput.setCustomValidity(`Цена за дом не может быть меньше 5000 и больше 100000 за ночь`);
         } else {
           priceInput.setCustomValidity(``);
         }
         break;
       case `palace`:
-        priceInput.placeholder = 10000;
-        priceInput.min = 10000;
-        if (priceValue > 100000 || priceValue < 10000) {
+        priceInput.placeholder = PRICES.palace;
+        priceInput.min = PRICES.palace;
+        if (priceValue > PRICES.max || priceValue < PRICES.palace) {
           priceInput.setCustomValidity(`Цена за дворец не может быть меньше 10000 и больше 100000 за ночь`);
         } else {
           priceInput.setCustomValidity(``);

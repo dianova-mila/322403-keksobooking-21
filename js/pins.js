@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+(() => {
   const map = document.querySelector(`.map`);
   const pinContainer = document.querySelector(`.map__pins`);
   const pinsCount = 5;
@@ -23,7 +23,7 @@
     const fragment = document.createDocumentFragment();
 
     for (let i = 0; i < Math.min(pinsCount, adverts.length); i++) {
-      const pin = window.pin.createPin(adverts[i]);
+      const pin = window.pin.create(adverts[i]);
       fragment.appendChild(pin);
     }
 
@@ -31,7 +31,7 @@
   };
 
   window.pins = {
-    'renderPins': renderPins,
-    'removePins': removePins,
+    'render': renderPins,
+    'remove': removePins,
   };
 })();

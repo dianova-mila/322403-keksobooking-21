@@ -1,9 +1,10 @@
 'use strict';
 
-(function () {
+(() => {
   const errorPopupTemplate = document.querySelector(`#error`)
     .content
     .querySelector(`.error`);
+  const container = document.querySelector(`main`);
 
   // Показать сообщение об ошибке
 
@@ -11,7 +12,7 @@
     let errorPopup = errorPopupTemplate.cloneNode(true);
     errorPopup.querySelector(`.error__message`).textContent = errorMessage;
 
-    document.body.appendChild(errorPopup);
+    container.appendChild(errorPopup);
 
     const errorCloseButton = errorPopup.querySelector(`.error__button`);
     const onErrorCloseButtonClick = (evt) => {
@@ -37,6 +38,6 @@
   };
 
   window.error = {
-    'showError': showError,
+    'show': showError,
   };
 })();

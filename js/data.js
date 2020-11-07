@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+(() => {
   let value = [];
 
   const save = (data) => {
