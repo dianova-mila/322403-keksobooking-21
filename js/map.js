@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+(() => {
   const MAIN_PIN_WIDTH = 62;
   const MAIN_PIN_HEIGHT = 84;
   const mainMapPin = document.querySelector(`.map__pin--main`);

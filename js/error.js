@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+(() => {
   const errorPopupTemplate = document.querySelector(`#error`)
     .content
     .querySelector(`.error`);

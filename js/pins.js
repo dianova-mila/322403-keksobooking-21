@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+(() => {
   const map = document.querySelector(`.map`);
   const pinContainer = document.querySelector(`.map__pins`);
   const pinsCount = 5;

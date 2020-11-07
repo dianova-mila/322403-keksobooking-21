@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+(() => {
   const MAIN_MAP_PIN_DEFAULT_POSITION = {
     'top': `375px`,
     'left': `570px`,
@@ -9,8 +9,8 @@
   const mainMapPin = document.querySelector(`.map__pin--main`);
   const form = document.querySelector(`.ad-form`);
   const formFieldsets = form.querySelectorAll(`fieldset`);
-  const mapFilter = document.querySelector(`.map__filters`);
-  const mapFilters = mapFilter.children;
+  const mapFilterForm = document.querySelector(`.map__filters`);
+  const mapFilters = mapFilterForm.children;
   const URLLoad = `https://21.javascript.pages.academy/keksobooking/data`;
 
   // Активировать страницу
@@ -60,7 +60,7 @@
     window.card.remove();
 
     form.reset();
-    mapFilter.reset();
+    mapFilterForm.reset();
 
     mainMapPin.style.top = MAIN_MAP_PIN_DEFAULT_POSITION.top;
     mainMapPin.style.left = MAIN_MAP_PIN_DEFAULT_POSITION.left;

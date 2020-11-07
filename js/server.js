@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+(() => {
   const TIMEOUT_IN_MS = 10000;
 
   const request = (data, method, URL, onSuccess, onError) => {

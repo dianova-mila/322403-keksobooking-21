@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+(() => {
   const PIN_WIDTH = 50;
   const PIN_HEIGHT = 70;
   const pinTemplate = document.querySelector(`#pin`)

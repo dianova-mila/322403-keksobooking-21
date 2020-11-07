@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+(() => {
   const successPopupTemplate = document.querySelector(`#success`)
     .content
     .querySelector(`.success`);

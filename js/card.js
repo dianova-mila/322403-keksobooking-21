@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+(() => {
   const advertCardTemplate = document.querySelector(`#card`)
     .content
     .querySelector(`.map__card`);

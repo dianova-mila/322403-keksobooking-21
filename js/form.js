@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+(() => {
   const form = document.querySelector(`.ad-form`);
   const formReset = document.querySelector(`.ad-form__reset`);
   const roomsSelect = document.querySelector(`#room_number`);

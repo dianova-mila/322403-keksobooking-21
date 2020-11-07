@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+(() => {
   const PRICE = {
     'middle': 10000,
     'high': 50000,

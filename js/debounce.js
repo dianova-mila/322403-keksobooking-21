@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+(() => {
   const DEBOUNCE_INTERVAL = 300; // ms
 
   window.debounce = (callback) => {
