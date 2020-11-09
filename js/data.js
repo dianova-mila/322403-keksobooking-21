@@ -1,16 +1,15 @@
 'use strict';
 
-(() => {
-  let value = [];
+let value = [];
 
-  const save = (data) => {
-    value = data;
-  };
+const save = (data) => {
+  value = data;
+};
 
-  const get = () => value;
+const get = () => value;
 
-  window.data = {
-    'save': save,
-    'get': get,
-  };
-})();
+window.data = {
+  'save': save,
+  'get': get,
+};
+
