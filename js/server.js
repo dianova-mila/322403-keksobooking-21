@@ -1,54 +1,60 @@
 'use strict';
 
-(() => {
-  const TIMEOUT_IN_MS = 10000;
+const TIMEOUT_IN_MS = 10000;
 
-  const request = (data, method, URL, onSuccess, onError) => {
-    const xhr = new XMLHttpRequest();
-    xhr.responseType = `json`;
+const HTTP_STATUS = {
+  'OK': 200,
+  'badRequest': 400,
+  'unauthorized': 401,
+  'notFound': 404,
+  'serverError': 500,
+};
 
-    xhr.addEventListener(`load`, () => {
-      let error;
-      switch (xhr.status) {
-        case 200:
-          onSuccess(xhr.response);
-          break;
+const request = (data, method, URL, onSuccess, onError) => {
+  const xhr = new XMLHttpRequest();
+  xhr.responseType = `json`;
 
-        case 400:
-          error = `Неверный запрос`;
-          break;
-        case 401:
-          error = `Пользователь не авторизован`;
-          break;
-        case 404:
-          error = `Ничего не найдено`;
-          break;
-        case 500:
-          error = `Внутренняя ошибка сервера`;
-          break;
+  xhr.addEventListener(`load`, () => {
+    let error;
+    switch (xhr.status) {
+      case HTTP_STATUS.OK:
+        onSuccess(xhr.response);
+        break;
 
-        default:
-          error = `Статус ответа: ${xhr.status} ${xhr.statusText}`;
-      }
+      case HTTP_STATUS.badRequest:
+        error = `Неверный запрос`;
+        break;
+      case HTTP_STATUS.unauthorized:
+        error = `Пользователь не авторизован`;
+        break;
+      case HTTP_STATUS.notFound:
+        error = `Ничего не найдено`;
+        break;
+      case HTTP_STATUS.serverError:
+        error = `Внутренняя ошибка сервера`;
+        break;
 
-      if (error) {
-        onError(error);
-      }
-    });
-    xhr.addEventListener(`error`, () => {
-      onError(`Произошла ошибка соединения`);
-    });
-    xhr.addEventListener(`timeout`, () => {
-      onError(`Запрос не успел выполниться за ` + xhr.timeout + `мс`);
-    });
+      default:
+        error = `Статус ответа: ${xhr.status} ${xhr.statusText}`;
+    }
 
-    xhr.timeout = TIMEOUT_IN_MS;
+    if (error) {
+      onError(error);
+    }
+  });
+  xhr.addEventListener(`error`, () => {
+    onError(`Произошла ошибка соединения`);
+  });
+  xhr.addEventListener(`timeout`, () => {
+    onError(`Запрос не успел выполниться за ` + xhr.timeout + `мс`);
+  });
 
-    xhr.open(method, URL);
-    xhr.send(data);
-  };
+  xhr.timeout = TIMEOUT_IN_MS;
 
-  window.server = {
-    'request': request,
-  };
-})();
+  xhr.open(method, URL);
+  xhr.send(data);
+};
+
+window.server = {
+  'request': request,
+};

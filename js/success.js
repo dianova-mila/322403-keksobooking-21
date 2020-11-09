@@ -1,44 +1,42 @@
 'use strict';
 
-(() => {
-  const successPopupTemplate = document.querySelector(`#success`)
-    .content
-    .querySelector(`.success`);
-  const container = document.querySelector(`main`);
+const successPopupTemplate = document.querySelector(`#success`)
+  .content
+  .querySelector(`.success`);
+const container = document.querySelector(`main`);
 
-  // Показать сообщение об удачной отправке данных
+// Показать сообщение об удачной отправке данных
 
-  const showSuccess = () => {
-    let successPopup = successPopupTemplate.cloneNode(true);
+const showSuccess = () => {
+  window.page.deactivate();
 
-    container.appendChild(successPopup);
+  let successPopup = successPopupTemplate.cloneNode(true);
 
-    const closeSuccessPopup = () => {
-      document.querySelector(`.success`).remove();
+  container.appendChild(successPopup);
 
-      document.removeEventListener(`click`, onSuccessPopupClick);
-      document.removeEventListener(`keydown`, onSuccessPopupEscPress);
+  const closeSuccessPopup = () => {
+    document.querySelector(`.success`).remove();
 
-      window.page.deactivate();
-    };
+    document.removeEventListener(`click`, onSuccessPopupClick);
+    document.removeEventListener(`keydown`, onSuccessPopupEscPress);
+  };
 
-    const onSuccessPopupClick = (evt) => {
+  const onSuccessPopupClick = (evt) => {
+    evt.preventDefault();
+    closeSuccessPopup();
+  };
+
+  const onSuccessPopupEscPress = (evt) => {
+    if (evt.key === `Escape`) {
       evt.preventDefault();
       closeSuccessPopup();
-    };
-
-    const onSuccessPopupEscPress = (evt) => {
-      if (evt.key === `Escape`) {
-        evt.preventDefault();
-        closeSuccessPopup();
-      }
-    };
-
-    document.addEventListener(`click`, onSuccessPopupClick);
-    document.addEventListener(`keydown`, onSuccessPopupEscPress);
+    }
   };
 
-  window.success = {
-    'show': showSuccess,
-  };
-})();
+  document.addEventListener(`click`, onSuccessPopupClick);
+  document.addEventListener(`keydown`, onSuccessPopupEscPress);
+};
+
+window.success = {
+  'show': showSuccess,
+};

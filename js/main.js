@@ -1,7 +1,5 @@
 'use strict';
 
-(() => {
-  // Страница неактивна
+// Страница неактивна
 
-  window.page.deactivate();
-})();
+window.page.deactivate();
