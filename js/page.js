@@ -11,6 +11,8 @@ const formFieldsets = form.querySelectorAll(`fieldset`);
 const mapFilterForm = document.querySelector(`.map__filters`);
 const mapFilters = mapFilterForm.children;
 const URLLoad = `https://21.javascript.pages.academy/keksobooking/data`;
+const avatarPreview = document.querySelector(`.ad-form-header__preview img`);
+const apartmentsPhotoPreview = document.querySelector(`.ad-form__photo`);
 
 // Активировать страницу
 
@@ -60,6 +62,8 @@ const deactivatePage = () => {
 
   form.reset();
   mapFilterForm.reset();
+  avatarPreview.src = `img/muffin-grey.svg`;
+  apartmentsPhotoPreview.style.backgroundImage = `none`;
 
   mainMapPin.style.top = MAIN_MAP_PIN_DEFAULT_POSITION.top;
   mainMapPin.style.left = MAIN_MAP_PIN_DEFAULT_POSITION.left;

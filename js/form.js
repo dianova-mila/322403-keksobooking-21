@@ -10,6 +10,10 @@ const advertTypeSelect = document.querySelector(`#type`);
 const timeInSelect = document.querySelector(`#timein`);
 const timeOutSelect = document.querySelector(`#timeout`);
 const URLUpload = `https://21.javascript.pages.academy/keksobooking`;
+const avatarChooser = document.querySelector(`.ad-form-header__input`);
+const avatarPreview = document.querySelector(`.ad-form-header__preview`);
+const apartmentsPhotoChooser = document.querySelector(`.ad-form__upload .ad-form__input`);
+const apartmentsPhotoPreview = document.querySelector(`.ad-form__photo`);
 
 // Валидация поля ввода гостей и комнат
 
@@ -45,3 +49,17 @@ const onFormResetButtonClick = (evt) => {
 };
 
 formReset.addEventListener(`click`, onFormResetButtonClick);
+
+// Показываем миниатюру для автара
+
+const onAvatarChooserChange = () => window.image.showPreview(avatarChooser, avatarPreview);
+
+avatarChooser.addEventListener(`change`, onAvatarChooserChange);
+
+// Показываем миниатюру для фото жилья
+
+const onApartmentsPhotoChooser = () => window.image.showPreview(apartmentsPhotoChooser, apartmentsPhotoPreview);
+
+apartmentsPhotoChooser.addEventListener(`change`, onApartmentsPhotoChooser);
+
+

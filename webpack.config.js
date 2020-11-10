@@ -11,6 +11,7 @@ module.exports = {
     "./js/error.js",
     "./js/success.js",
     "./js/server.js",
+    "./js/image.js",
     "./js/validators.js",
     "./js/form.js",
     "./js/map.js",
