@@ -7,11 +7,13 @@ const mainMapPin = document.querySelector(`.map__pin--main`);
 
 // Обработчики для mainPin
 
-mainMapPin.addEventListener(`mousedown`, (evt) => {
+const onMainMapPinMouseDown = (evt) => {
   if (evt.button === 0) {
     window.utils.setAddressValue();
   }
-});
+};
+
+mainMapPin.addEventListener(`mousedown`, onMainMapPinMouseDown);
 
 const onMainMapPinMousemove = (evt) => {
   evt.preventDefault();

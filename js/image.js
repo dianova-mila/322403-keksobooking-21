@@ -6,14 +6,14 @@ const showImagePreview = (source, target) => {
   const file = source.files[0];
   const fileName = file.name.toLowerCase();
 
-  const matches = FILE_TYPES.some(function (it) {
+  const matches = FILE_TYPES.some((it) => {
     return fileName.endsWith(it);
   });
 
   if (matches) {
     const reader = new FileReader();
 
-    reader.addEventListener(`load`, function () {
+    const onReaderLoad = () => {
       if (target.querySelector(`img`)) {
         target.querySelector(`img`).src = `${reader.result}`;
       } else {
@@ -21,7 +21,9 @@ const showImagePreview = (source, target) => {
         target.style.backgroundSize = `100% 100%`;
         target.style.backgroundRepeat = `no-repeat`;
       }
-    });
+    };
+
+    reader.addEventListener(`load`, onReaderLoad);
 
     reader.readAsDataURL(file);
   }

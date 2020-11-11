@@ -14,6 +14,7 @@ const showError = (errorMessage) => {
   container.appendChild(errorPopup);
 
   const errorCloseButton = errorPopup.querySelector(`.error__button`);
+
   const onErrorCloseButtonClick = (evt) => {
     evt.preventDefault();
     errorPopupClose();
