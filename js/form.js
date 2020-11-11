@@ -36,10 +36,12 @@ timeOutSelect.addEventListener(`change`, window.validators.tuneTimeIn);
 
 // Отправка формы
 
-form.addEventListener(`submit`, (evt) => {
+const onFormSubmit = (evt) => {
   window.server.request(new FormData(form), `POST`, URLUpload, window.success.show, window.error.show);
   evt.preventDefault();
-});
+};
+
+form.addEventListener(`submit`, onFormSubmit);
 
 // Обработчик для кнопки "очистить"
 

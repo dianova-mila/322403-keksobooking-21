@@ -23,7 +23,7 @@ const activatePage = () => {
   window.utils.switchForm(formFieldsets, false);
   window.server.request(``, `GET`, URLLoad, onSuccessLoad, window.error.show);
 
-  mainMapPin.removeEventListener(`mousedown`, onMainMapPinMouseDown);
+  mainMapPin.removeEventListener(`mousedown`, onMainMapPinFirstMouseDown);
   mainMapPin.removeEventListener(`keydown`, onMainMapPinEnterPress);
 };
 
@@ -34,7 +34,7 @@ const onSuccessLoad = (serverResponse) => {
   window.utils.switchForm(mapFilters, false);
 };
 
-const onMainMapPinMouseDown = (evt) => {
+const onMainMapPinFirstMouseDown = (evt) => {
   if (evt.button === 0) {
     activatePage();
   }
@@ -72,7 +72,7 @@ const deactivatePage = () => {
   window.utils.switchForm(mapFilters, true);
   window.utils.setStartAddressValue();
 
-  mainMapPin.addEventListener(`mousedown`, onMainMapPinMouseDown);
+  mainMapPin.addEventListener(`mousedown`, onMainMapPinFirstMouseDown);
   mainMapPin.addEventListener(`keydown`, onMainMapPinEnterPress);
 };
 

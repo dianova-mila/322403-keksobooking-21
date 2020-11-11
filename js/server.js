@@ -2,35 +2,35 @@
 
 const TIMEOUT_IN_MS = 10000;
 
-const HTTP_STATUS = {
+const StatusCode = {
   'OK': 200,
-  'badRequest': 400,
-  'unauthorized': 401,
-  'notFound': 404,
-  'serverError': 500,
+  'BAD_REQUEST': 400,
+  'UNAUTHORIZED': 401,
+  'NOT_FOUND': 404,
+  'SERVER_ERROR': 500,
 };
 
 const request = (data, method, URL, onSuccess, onError) => {
   const xhr = new XMLHttpRequest();
   xhr.responseType = `json`;
 
-  xhr.addEventListener(`load`, () => {
+  const onXhrLoad = () => {
     let error;
     switch (xhr.status) {
-      case HTTP_STATUS.OK:
+      case StatusCode.OK:
         onSuccess(xhr.response);
         break;
 
-      case HTTP_STATUS.badRequest:
+      case StatusCode.BAD_REQUEST:
         error = `Неверный запрос`;
         break;
-      case HTTP_STATUS.unauthorized:
+      case StatusCode.UNAUTHORIZED:
         error = `Пользователь не авторизован`;
         break;
-      case HTTP_STATUS.notFound:
+      case StatusCode.NOT_FOUND:
         error = `Ничего не найдено`;
         break;
-      case HTTP_STATUS.serverError:
+      case StatusCode.SERVER_ERROR:
         error = `Внутренняя ошибка сервера`;
         break;
 
@@ -41,13 +41,19 @@ const request = (data, method, URL, onSuccess, onError) => {
     if (error) {
       onError(error);
     }
-  });
-  xhr.addEventListener(`error`, () => {
+  };
+
+  const onXhrError = () => {
     onError(`Произошла ошибка соединения`);
-  });
-  xhr.addEventListener(`timeout`, () => {
+  };
+
+  const onXhrTimeout = () => {
     onError(`Запрос не успел выполниться за ` + xhr.timeout + `мс`);
-  });
+  };
+
+  xhr.addEventListener(`load`, onXhrLoad);
+  xhr.addEventListener(`error`, onXhrError);
+  xhr.addEventListener(`timeout`, onXhrTimeout);
 
   xhr.timeout = TIMEOUT_IN_MS;
 
