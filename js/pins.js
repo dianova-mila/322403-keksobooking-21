@@ -5,6 +5,7 @@ const pinContainer = document.querySelector(`.map__pins`);
 const pinsCount = 5;
 
 // Удаление пинов
+
 const removePins = () => {
   if (map.querySelector(`.map__pin:not(.map__pin--main)`)) {
     const mapPins = map.querySelectorAll(`.map__pin:not(.map__pin--main)`);

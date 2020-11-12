@@ -95,6 +95,7 @@ const onCardEscPress = (evt) => {
 };
 
 // Скрыть карточку
+
 const removeCard = () => {
   if (map.querySelector(`.map__card`)) {
     map.querySelector(`.map__card`).remove();
